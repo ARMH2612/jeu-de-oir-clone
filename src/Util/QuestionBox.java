@@ -49,6 +49,7 @@ public class QuestionBox {
 
         VBox layout = new VBox(10);
         HBox btns = new HBox(20);
+        btns.setAlignment(Pos.CENTER);
         btns.getChildren().addAll(answerBtn,closeBtn);
         layout.getChildren().addAll(label,tempAnswer,t,btns);
         layout.setAlignment(Pos.CENTER);

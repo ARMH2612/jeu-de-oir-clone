@@ -68,7 +68,10 @@ public class Board implements Initializable {
         HashMap<Integer, Integer> checkDouble = new HashMap<>();
         int key = 0;
         while (checkDouble.size() < 25) {
-            rand = (int)  ((Math.random() * (98 - 1)) + 1);
+            do {
+                rand = (int)  ((Math.random() * (98 - 1)) + 1);
+            }
+            while(checkDouble.containsValue(rand));
             checkDouble.put(key, rand);
             key ++;
         }
@@ -240,6 +243,8 @@ public class Board implements Initializable {
     private void performeDefinition(){
         allowedToWalk = true;
         setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        rightDie.setText(String.valueOf(0));
+        leftDie.setText(String.valueOf(0));
         allowedToWalk = true;
 
         boolean right = QuestionBox.display("Case de question","How are you?","Fine");
@@ -257,6 +262,8 @@ public class Board implements Initializable {
     private void performeBonus(){
         allowedToWalk = true;
         setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        rightDie.setText(String.valueOf(0));
+        leftDie.setText(String.valueOf(0));
         score += 10;
         scoreCounter.setText(String.valueOf(score));
         AlertBox.display("Case de Bonus","vous gagnez 10 points et avancez de deux pas", "#f15bb5");
@@ -267,6 +274,8 @@ public class Board implements Initializable {
     private void performeMalus(){
         allowedToWalk = true;
         setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        rightDie.setText(String.valueOf(0));
+        leftDie.setText(String.valueOf(0));
         score -= 10;
         scoreCounter.setText(String.valueOf(score));
         AlertBox.display("Case de Bonus","vous perdu 10 points et reculez de deux pas", "#f15bb5");
@@ -277,6 +286,8 @@ public class Board implements Initializable {
     private void declareFin(){
         allowedToWalk = true;
         setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        rightDie.setText(String.valueOf(0));
+        leftDie.setText(String.valueOf(0));
         AlertBox.display("Fin du jeu","Vous avez atteint la fin du jeu : \nTon score est : "+scoreCounter.getText()+" points.", "#8ecae6");
     }
 
@@ -416,7 +427,7 @@ public class Board implements Initializable {
         rightDie.setText(String.valueOf(randomRight));
         leftDie.setText(String.valueOf(randomleft));
 
-        movesAdd.setText("Move "+(randomRight+randomleft)+" Steps");
+        movesAdd.setText("Bouger "+(randomRight+randomleft)+" pas");
         allowedToWalk = true;
     }
 
