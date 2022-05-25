@@ -278,7 +278,7 @@ public class Board implements Initializable {
         leftDie.setText(String.valueOf(0));
         score -= 10;
         scoreCounter.setText(String.valueOf(score));
-        AlertBox.display("Case de Bonus","vous perdu 10 points et reculez de deux pas", "#f15bb5");
+        AlertBox.display("Case de Bonus","vous avez perdu 10 points et reculez de deux pas", "#f15bb5");
         allowedToWalk = true;
         setPlayerPosition(-2);
     }
