@@ -2,6 +2,7 @@ package Game.Board;
 
 import Game.Tiles.Tile;
 import Util.AlertBox;
+import Util.QuestionBox;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -213,7 +214,7 @@ public class Board implements Initializable {
                         }else if(type.equals("Image")){
                             performeSaut();
                         }else if(type.equals("Definition")){
-                            performeSaut();
+                            performeDefinition();
                         }else if(type.equals("Malus")){
                             performeMalus();
                         }else if(type.equals("Bonus")){
@@ -234,6 +235,23 @@ public class Board implements Initializable {
 
         }
 
+    }
+
+    private void performeDefinition(){
+        allowedToWalk = true;
+        setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        allowedToWalk = true;
+
+        boolean right = QuestionBox.display("Case de question","How are you?","Fine");
+        if (right){
+            score+= 40;
+            scoreCounter.setText(String.valueOf(score));
+            setPlayerPosition(4);
+        }else{
+            score-= 10;
+            scoreCounter.setText(String.valueOf(score));
+            setPlayerPosition(4);
+        }
     }
 
     private void performeBonus(){
