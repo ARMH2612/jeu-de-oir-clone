@@ -29,6 +29,7 @@ public class Board implements Initializable {
     int sautCounter = 0;
     int difinitionCounter = 0;
     int imageCounter = 0;
+    int score = 0;
 
 
     @FXML
@@ -214,9 +215,11 @@ public class Board implements Initializable {
                         }else if(type.equals("Definition")){
                             performeSaut();
                         }else if(type.equals("Malus")){
-                            performeSaut();
+                            performeMalus();
                         }else if(type.equals("Bonus")){
-                            performeSaut();
+                            performeBonus();
+                        }else if(type.equals("Fin")){
+                            declareFin();
                         }else{
                             setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
                         }
@@ -233,6 +236,32 @@ public class Board implements Initializable {
 
     }
 
+    private void performeBonus(){
+        allowedToWalk = true;
+        setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        score += 10;
+        scoreCounter.setText(String.valueOf(score));
+        AlertBox.display("Case de Bonus","vous gagnez 10 points et avancez de deux pas", "#f15bb5");
+        allowedToWalk = true;
+        setPlayerPosition(2);
+    }
+
+    private void performeMalus(){
+        allowedToWalk = true;
+        setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        score -= 10;
+        scoreCounter.setText(String.valueOf(score));
+        AlertBox.display("Case de Bonus","vous perdu 10 points et reculez de deux pas", "#f15bb5");
+        allowedToWalk = true;
+        setPlayerPosition(-2);
+    }
+
+    private void declareFin(){
+        allowedToWalk = true;
+        setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
+        AlertBox.display("Fin du jeu","Vous avez atteint la fin du jeu : \nTon score est : "+scoreCounter.getText()+" points.", "#8ecae6");
+    }
+
     private void performeSaut(){
         setPlayerPosition((Integer.parseInt(rightDie.getText()) + Integer.parseInt(leftDie.getText())));
         allowedToWalk = true;
@@ -240,8 +269,7 @@ public class Board implements Initializable {
         int randomSteps = (int)(Math.random()*12);
         if(random == 1){
             // avancer
-            AlertBox.display("Case de SAUT","vous avez marché sur la tuile de saut :\n" +
-                    "Vous devez sauter "+randomSteps+" tuiles en avant", "#e9c46a");
+            AlertBox.display("Case de SAUT","vous avez marché sur la tuile de saut :\nVous devez sauter "+randomSteps+" tuiles en avant", "#e9c46a");
             setPlayerPosition(randomSteps);
 
         }else{
@@ -260,7 +288,7 @@ public class Board implements Initializable {
         }else{
 
             if((playerPos+moves) >= 100){
-                moves = playerPos - moves;
+                moves = -moves;
             }
 
             Pane pold = panes.get(playerPos);
@@ -287,9 +315,28 @@ public class Board implements Initializable {
                 pold.getChildren().add(new Text(String.valueOf(playerPos + 1)));
             }
 
-            playerPos = (playerPos+moves);
-            allowedToWalk = false;
+//            playerPos = (playerPos+moves);
+            playerPos = panes.indexOf(p);
+            System.out.println("New pos :"+ playerPos+" | type : "+tiles.get(playerPos).getType());
 
+//            if(tiles.get(playerPos).getType().equals("Bonus")){
+//                performeSaut();
+//            }else if(tiles.get(playerPos).getType().equals("Malus")){
+//                performeSaut();
+//            }else  if(tiles.get(playerPos).getType().equals("Saut")){
+//                performeSaut();
+//            }else if(tiles.get(playerPos).getType().equals("Image")){
+//                performeSaut();
+//            }else if(tiles.get(playerPos).getType().equals("Definition")){
+//                performeSaut();
+//            }else if(tiles.get(playerPos).getType().equals("End")){
+//                declareFin();
+//            }else {
+            if(moves>0){
+                allowedToWalk = false;
+            }
+
+//            }
         }
 
 
