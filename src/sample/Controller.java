@@ -19,7 +19,7 @@ public class Controller {
         if (playerName.getText().isEmpty()) {
             AlertBox.display("Erreur", "Vous dever entrer votre nom svp!");
         }else{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Game/Board/Board.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/Board.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
